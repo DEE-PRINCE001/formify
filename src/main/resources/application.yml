@@ -1,0 +1,24 @@
+spring:
+  config:
+    import: optional:classpath:application_sec.yml
+  application:
+    name:
+      formify
+  datasource:
+    url: jdbc:postgresql://localhost:5432/formify
+    username: postgres
+    password: 0.7.0.3.2.7.4.6.6.4.2.
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql:true
+
+
+
+
+
+
+
