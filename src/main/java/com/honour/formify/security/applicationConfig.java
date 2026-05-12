@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.honour.formify.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +19,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ApplicationConfig {
     private final UserRepository userRepository;
-
-    public ApplicationConfig(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -38,7 +35,7 @@ public class ApplicationConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(); 
         authProvider.setUserDetailsService(userDetailsService()); 
-        authProvider.setPasswordEncoder(passwordEncoder())
+        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 

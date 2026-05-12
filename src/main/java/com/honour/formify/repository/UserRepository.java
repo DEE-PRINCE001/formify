@@ -1,4 +1,6 @@
 package com.honour.formify.repository;
+import org.springframework.stereotype.Repository;
+
 import com.honour.formify.entity.User;
 
 @Repository
