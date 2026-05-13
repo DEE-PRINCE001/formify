@@ -65,6 +65,11 @@ public class FormService {
         return mapToResponse(savedForm);
     }
 
+    public FormResponse getFormById(Long id) {
+        Form form = formRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Form not found"));
+        return mapToResponse(form);
+    }
 
     public List<FormResponse> getAllMyForms() {
 

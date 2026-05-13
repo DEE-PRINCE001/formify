@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.honour.formify.dtos.FormRequest;
 import com.honour.formify.dtos.FormResponse;
+import com.honour.formify.dtos.FormResponseDetail;
+import com.honour.formify.dtos.SubmitResponseRequest;
 import com.honour.formify.service.FormService;
+import com.honour.formify.service.ResponseService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FormController {
     private final FormService formService;
+    private final ResponseService responseService;
 
     @PostMapping
     public ResponseEntity<FormResponse> createForm(@RequestBody FormRequest request) {
@@ -38,4 +42,21 @@ public class FormController {
         formService.deleteForm(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FormResponse> getFormById(@PathVariable Long id) {
+        return ResponseEntity.ok(formService.getFormById(id));
+    }
+
+    @PostMapping("/{id}/responses")
+    public ResponseEntity<String> submitResponse(@PathVariable Long id, @RequestBody SubmitResponseRequest request) {
+        responseService.submitFormResponse(id, request);
+        return ResponseEntity.ok("Response submitted successfully");
+    }
+
+    @GetMapping("/{id}/responses")
+    public ResponseEntity<List<FormResponseDetail>> getFormResponses(@PathVariable Long id) {
+        return ResponseEntity.ok(responseService.getResponsesForForm(id));
+    }
+
 }

@@ -1,5 +1,4 @@
 package com.honour.formify.dtos;
-import java.util.List;
 
 import lombok.Data;
 import lombok.Builder;
@@ -10,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionDTO {
-    private Long id;
-    private String text;
-    private String type; 
-    private List<String> options; 
+public class AnswerRequest {
+    private Long questionId;
+    private String answerText;
 }
