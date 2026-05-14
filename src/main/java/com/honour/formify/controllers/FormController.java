@@ -17,6 +17,7 @@ import com.honour.formify.dtos.FormResponseDetail;
 import com.honour.formify.dtos.SubmitResponseRequest;
 import com.honour.formify.service.FormService;
 import com.honour.formify.service.ResponseService;
+import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,7 @@ public class FormController {
     private final ResponseService responseService;
 
     @PostMapping
-    public ResponseEntity<FormResponse> createForm(@RequestBody FormRequest request) {
+    public ResponseEntity<FormResponse> createForm(@Valid @RequestBody FormRequest request) {
         return ResponseEntity.ok(formService.createForm(request));
     }
 
@@ -49,7 +50,7 @@ public class FormController {
     }
 
     @PostMapping("/{id}/responses")
-    public ResponseEntity<String> submitResponse(@PathVariable Long id, @RequestBody SubmitResponseRequest request) {
+    public ResponseEntity<String> submitResponse(@PathVariable Long id, @Valid @RequestBody SubmitResponseRequest request) {
         responseService.submitFormResponse(id, request);
         return ResponseEntity.ok("Response submitted successfully");
     }

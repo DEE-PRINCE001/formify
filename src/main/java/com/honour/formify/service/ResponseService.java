@@ -59,14 +59,14 @@ public class ResponseService {
 
 
     public List<FormResponseDetail> getResponsesForForm(Long formId) {
-
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
+
         User currentUser = userRepository.findByEmail(email)
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("User not found"));
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new RuntimeException("Form not found"));
-
+        
         if (!form.getCreatedBy().getId().equals(currentUser.getId())) {
             throw new RuntimeException("Unauthorized: You do not own this form");
         }
