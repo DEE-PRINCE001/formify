@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,6 +32,12 @@ public class SecurityConfig {
                     .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/forms/*").permitAll()
                     .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/forms/*/responses").permitAll()
                     .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(customOAuth2UserService) // Uses our logic to save the user to the DB
+                )
+                .successHandler(oAuth2SuccessHandler) // Uses our logic to generate JWT and redirect to React
             )
             .exceptionHandling(ex -> ex
                     .authenticationEntryPoint((request, response, authException) -> {

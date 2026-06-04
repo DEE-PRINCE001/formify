@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+s.json
 application_sec.yml
 ### STS ###
 .apt_generated

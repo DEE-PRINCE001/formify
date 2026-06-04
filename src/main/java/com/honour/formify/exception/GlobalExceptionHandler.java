@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         HttpStatus status = (ex.getMessage() != null && ex.getMessage().toLowerCase().contains("unauthorized")) 
             ? HttpStatus.FORBIDDEN 
             : HttpStatus.BAD_REQUEST;
-        System.out.println("Returning status: " + status);
+        // System.out.println("Returning status: " + status);
         return new ResponseEntity<>(errorResponse, status);
     }
 

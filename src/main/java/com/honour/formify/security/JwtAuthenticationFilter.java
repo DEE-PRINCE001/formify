@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
-            System.out.println("I've got no Authorisation, moving up to the next filter");
+            // System.out.println("I've got no Authorisation, moving up to the next filter");
             return;
         }
 

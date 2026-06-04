@@ -4,6 +4,7 @@ import com.honour.formify.dtos.AuthenticationRequest;
 import com.honour.formify.dtos.AuthenticationResponse;
 import com.honour.formify.dtos.RegisterRequest;
 import com.honour.formify.entity.User;
+import com.honour.formify.enums.AuthProvider;
 import com.honour.formify.entity.Role;
 import com.honour.formify.repository.UserRepository;
 import com.honour.formify.security.JWTService;
@@ -26,6 +27,7 @@ public class AuthenticationService {
         var user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .provider(AuthProvider.LOCAL)
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
