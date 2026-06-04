@@ -24,6 +24,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        String email = request.getEmail();
+        if (userRepository.findByEmail(email).isPresent()){
+                throw new RuntimeException("This User is registered already, Kindly Login");
+        }
         var user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))

@@ -48,12 +48,12 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<version>42.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.30</version>
+			<version>1.18.40</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -119,10 +119,12 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
+							<release>21</release>
 							<annotationProcessorPaths>
 								<path>
 									<groupId>org.projectlombok</groupId>
 									<artifactId>lombok</artifactId>
+									<version>1.18.40</version>
 								</path>
 							</annotationProcessorPaths>
 						</configuration>

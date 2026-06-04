@@ -4,6 +4,7 @@ import com.honour.formify.dtos.AuthenticationRequest;
 import com.honour.formify.dtos.AuthenticationResponse;
 import com.honour.formify.dtos.RegisterRequest;
 import com.honour.formify.dtos.ForgotPasswordRequest;
+import com.honour.formify.dtos.Message;
 import com.honour.formify.dtos.ResetPasswordRequest;
 import com.honour.formify.service.AuthenticationService;
 import com.honour.formify.service.PasswordResetService;
@@ -34,15 +35,15 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<Message> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         passwordResetService.requestPasswordReset(request);
         // Always return success to obscure whether the email exists or not
-        return ResponseEntity.ok("If an account with that email exists, a reset link has been sent.");
+        return ResponseEntity.ok(new Message("If an account with that email exists, a reset link has been sent."));
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+    public ResponseEntity<Message> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
         passwordResetService.resetPassword(request);
-        return ResponseEntity.ok("Password has been reset successfully.");
+        return ResponseEntity.ok(new Message("Password reset is successful"));
     }
 }
