@@ -52,7 +52,7 @@ spring:
             enable: true
 app:
   oauth2:
-    redirectUri: http://localhost:3000/oauth2/redirect
+    redirectUri: http://localhost:5173/login
 
 
 
