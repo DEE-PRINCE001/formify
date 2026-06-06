@@ -16,9 +16,18 @@ public class EmailService {
     @Value("${MAIL_FROM_ADDRESS:noreply@yourdomain.com}")
     private String fromAddress;
 
+    @Value("spring.mail.username")
+    private String username;
+
+    @Value("spring.mail.password")
+    private String password;
+
     public void sendPasswordResetEmail(String to, String token) {
         String resetUrl = "http://localhost:5173/reset-password?token=" + token;
         System.out.println("Mailer: It got her but haven't sent");
+        System.out.println("Password: " + password);
+        System.out.println("Username: " + username);
+
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromAddress);
         message.setTo(to);
