@@ -29,6 +29,7 @@ public class EmailService {
         System.out.println("Mailer: It got her but haven't sent");
         System.out.println("Password: " + password);
         System.out.println("Username: " + username);
+        System.out.println(InetAddress.getByName("sandbox.smtp.mailtrap.io"));
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromAddress);
