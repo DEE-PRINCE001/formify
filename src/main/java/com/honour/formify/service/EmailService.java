@@ -17,8 +17,8 @@ public class EmailService {
     private String fromAddress;
 
     public void sendPasswordResetEmail(String to, String token) {
-        String resetUrl = "http://localhost:3000/reset-password?token=" + token;
-
+        String resetUrl = "http://localhost:5173/reset-password?token=" + token;
+        System.out.println("Mailer: It got her but haven't sent");
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromAddress);
         message.setTo(to);
