@@ -23,6 +23,8 @@ public class EmailService {
     private String password;
 
     public void sendPasswordResetEmail(String to, String token) {
+
+        try{ 
         String resetUrl = "http://localhost:5173/reset-password?token=" + token;
         System.out.println("Mailer: It got her but haven't sent");
         System.out.println("Password: " + password);
@@ -36,5 +38,13 @@ public class EmailService {
                         "\n\nThis link will expire in 15 minutes.");
         
         mailSender.send(message);
+
+        System.out.println("Success");
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
     }
 }
