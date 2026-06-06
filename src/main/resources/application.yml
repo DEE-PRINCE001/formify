@@ -40,8 +40,8 @@ spring:
               - user:email
               - read:user
   mail:
-    host: "sandbox.smtp.mailtrap.io"      
-    port: 587                
+    host: "sandbox.smtp.mailtrap.io"
+    port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
     properties:

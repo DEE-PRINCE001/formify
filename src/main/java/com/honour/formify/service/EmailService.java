@@ -16,10 +16,10 @@ public class EmailService {
     @Value("${MAIL_FROM_ADDRESS:noreply@yourdomain.com}")
     private String fromAddress;
 
-    @Value("spring.mail.username")
+    @Value("${spring.mail.username}")
     private String username;
 
-    @Value("spring.mail.password")
+    @Value("${spring.mail.password}")
     private String password;
 
     public void sendPasswordResetEmail(String to, String token) {
