@@ -33,10 +33,10 @@ public class PasswordResetService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            // Clear any old tokens for this user
+       
             tokenRepository.deleteByUser_Id(user.getId());
 
-            // Generate a secure, random UUID token
+            // random UUID token
             String token = UUID.randomUUID().toString();
 
             PasswordResetToken resetToken = PasswordResetToken.builder()
@@ -47,7 +47,6 @@ public class PasswordResetService {
 
             tokenRepository.save(resetToken);
 
-            // Send the email (ensure this is async in high-traffic apps, but fine for now)
             emailService.sendPasswordResetEmail(user.getEmail(), token);
         }
     }
