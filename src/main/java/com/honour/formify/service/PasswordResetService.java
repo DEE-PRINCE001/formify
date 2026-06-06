@@ -6,6 +6,8 @@ import com.honour.formify.entity.PasswordResetToken;
 import com.honour.formify.entity.User;
 import com.honour.formify.repository.PasswordResetTokenRepository;
 import com.honour.formify.repository.UserRepository;
+import com.honour.formify.service.MailTrapEmailService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ public class PasswordResetService {
 
     private final UserRepository userRepository;
     private final PasswordResetTokenRepository tokenRepository;
-    private final EmailService emailService;
+    private final MailTrapEmailService emailService;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
