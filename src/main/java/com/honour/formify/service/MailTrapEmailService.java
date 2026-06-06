@@ -30,8 +30,10 @@ public class MailTrapEmailService implements EmailService{
         
             String resetUrl = "http://localhost:5173/reset-password?token=" + token;
             final MailtrapConfig config = new MailtrapConfig.Builder()
-                .token(TOKEN)
-                .build();
+            .sandbox(true)
+            .inboxId(4686578L)
+            .token(TOKEN)
+            .build();
     
             final MailtrapClient client = MailtrapClientFactory.createMailtrapClient(config);
     
