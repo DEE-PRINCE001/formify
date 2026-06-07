@@ -49,6 +49,7 @@ public class FormService {
                 Question question = Question.builder()
                         .text(qReq.getText())
                         .type(QuestionType.valueOf(qReq.getType().toUpperCase()))
+                        .required(qReq.isRequired())
                         .build();
                 if (qReq.getOptions() != null) {
                     for (String optText : qReq.getOptions()) {
@@ -118,6 +119,7 @@ public class FormService {
         QuestionDTO dto = new QuestionDTO();
         dto.setId(question.getId());
         dto.setText(question.getText());
+        dto.setRequired(question.isRequired());
         dto.setType(question.getType().name());
         dto.setOptions(question.getOptions().stream()
                 .map(Option::getText)

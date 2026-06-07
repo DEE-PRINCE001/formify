@@ -26,16 +26,19 @@ public class Question {
     @Column(nullable = false)
     private QuestionType type;
 
+    
     @Column(nullable = false)
     private String text;
-
+    
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     @JoinColumn(name = "form_id", nullable = false)
     private Form form;
-
+    
     @OneToMany(mappedBy = "question", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Option> options = new ArrayList<>();
+    
+    private boolean required;
 
      public void addOption(Option option) {
         options.add(option);

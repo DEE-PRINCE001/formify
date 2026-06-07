@@ -23,7 +23,7 @@ public class PasswordResetService {
 
     private final UserRepository userRepository;
     private final PasswordResetTokenRepository tokenRepository;
-    private final MailTrapEmailService emailService;
+    private final MailTrapEmailService mailTrapEmailService;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -49,7 +49,7 @@ public class PasswordResetService {
 
             tokenRepository.save(resetToken);
 
-            emailService.sendPasswordResetEmail(user.getEmail(), token);
+            mailTrapEmailService.sendPasswordResetEmail(user.getEmail(), token);
         }
     }
 

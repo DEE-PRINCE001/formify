@@ -1,9 +1,13 @@
 package com.honour.formify.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.honour.formify.dtos.AnswerDetail;
 import com.honour.formify.dtos.AnswerRequest;
@@ -37,6 +41,21 @@ public class ResponseService {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new RuntimeException("Form not found"));
 
+        for (Question question : form.getQuestions()) {
+            if (!question.isRequired()) continue;
+
+            Optional<AnswerRequest> matching = request.getAnswers().stream()
+                    .filter(a -> Objects.equals(a.getQuestionId(), question.getId()))
+                    .findFirst();
+
+            String answerText = matching
+                    .map(AnswerRequest::getAnswerText)
+                    .orElse(null);
+
+            if (answerText == null || answerText.isBlank()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Required question not answered");
+            }
+        }
         Response response = Response.builder()
                 .form(form)
                 .build();

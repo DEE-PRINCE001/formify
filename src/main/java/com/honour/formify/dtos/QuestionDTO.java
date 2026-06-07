@@ -15,4 +15,5 @@ public class QuestionDTO {
     private String text;
     private String type; 
     private List<String> options; 
+    private boolean required;
 }

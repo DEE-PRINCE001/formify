@@ -19,4 +19,6 @@ public class QuestionRequest {
     @NotBlank(message = "Question type is required")
     private String type; 
     private List<String> options; 
+
+    private boolean required;
 }
