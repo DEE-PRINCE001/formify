@@ -20,8 +20,8 @@ public class ResendEmailService implements EmailService {
         
             String resetUrl = "http://formify-navy-pi.vercel.app/reset-password?token=" + token;
             String htmlContent = String.format(
-    "<p>To reset your password,</p><p>Click <a href='%s'>here</a> <br></p><p>The link will expire in 15 minutes.</p>",
-    resetUrl);
+    "<p>To reset your password,</p><p>Click <a href='%s'>here</a> <br></p><p>The link will expire in 15 minutes.<br></p><p>By the way, this is supposed to be sent to %s</p>",
+    resetUrl, to);
             
         Resend resend = new Resend(TOKEN);
 
