@@ -6,6 +6,8 @@ import com.honour.formify.entity.PasswordResetToken;
 import com.honour.formify.entity.User;
 import com.honour.formify.repository.PasswordResetTokenRepository;
 import com.honour.formify.repository.UserRepository;
+import com.honour.formify.service.ResendEmailService;
+import com.resend.core.exception.ResendException;
 import com.honour.formify.service.MailTrapEmailService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,11 +25,14 @@ public class PasswordResetService {
 
     private final UserRepository userRepository;
     private final PasswordResetTokenRepository tokenRepository;
-    private final MailTrapEmailService mailTrapEmailService;
+    //private final MailTrapEmailService mailTrapEmailService;
+    // private final GmailSMTPService gmailSMTPService;
+    private final ResendEmailService resendEmailService;
+    
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void requestPasswordReset(ForgotPasswordRequest request) {
+    public void requestPasswordReset(ForgotPasswordRequest request) throws ResendException {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
 
         // If user exists, generate token and send email. 
@@ -37,6 +42,8 @@ public class PasswordResetService {
 
        
             tokenRepository.deleteByUser_Id(user.getId());
+
+            tokenRepository.flush();
 
             // random UUID token
             String token = UUID.randomUUID().toString();
@@ -49,7 +56,8 @@ public class PasswordResetService {
 
             tokenRepository.save(resetToken);
 
-            mailTrapEmailService.sendPasswordResetEmail(user.getEmail(), token);
+           resendEmailService.sendPasswordResetEmail(user.getEmail(), token);
+            // mailTrapEmailService.sendPasswordResetEmail(user.getEmail(), token);
         }
     }
 

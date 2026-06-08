@@ -40,8 +40,8 @@ spring:
               - user:email
               - read:user
   mail:
-    host: "sandbox.smtp.mailtrap.io"
-    port: 465
+    host: "smtp.gmail.com"
+    port: 587
     username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
     properties:
@@ -52,7 +52,7 @@ spring:
             enable: true
 app:
   oauth2:
-    redirectUri: http://localhost:5173/login
+    redirectUri: http://formify-navy-pi.vercel.app/login
 
 
 

@@ -8,6 +8,7 @@ import com.honour.formify.dtos.Message;
 import com.honour.formify.dtos.ResetPasswordRequest;
 import com.honour.formify.service.AuthenticationService;
 import com.honour.formify.service.PasswordResetService;
+import com.resend.core.exception.ResendException;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,12 @@ public class AuthController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<Message> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
-        passwordResetService.requestPasswordReset(request);
+        try { passwordResetService.requestPasswordReset(request);}
+        catch(ResendException e){
+
+            return ResponseEntity.ok(new Message(e.getMessage()));
+
+        }
         // Always return success to obscure whether the email exists or not
         return ResponseEntity.ok(new Message("If an account with that email exists, a reset link has been sent."));
     }

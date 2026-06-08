@@ -20,7 +20,7 @@ public class MailTrapEmailService implements EmailService{
     // private final JavaMailSender mailSender;
     
     
-    @Value("${MAIL_FROM_ADDRESS:noreply@yourdomain.com}")
+    @Value("${MAIL_FROM_ADDRESS:noreply@yformifyfb.com}")
     private String fromAddress;
 
     @Value("${MAIL_API_KEY}")
@@ -28,7 +28,7 @@ public class MailTrapEmailService implements EmailService{
     
     public void sendPasswordResetEmail(String to, String token) {
         
-            String resetUrl = "http://localhost:5173/reset-password?token=" + token;
+            String resetUrl = "http://formify-navi-pi.vercel.app/reset-password?token=" + token;
             final MailtrapConfig config = new MailtrapConfig.Builder()
             .sandbox(true)
             .inboxId(4686578L)

@@ -1,7 +1,9 @@
 package com.honour.formify.service.Interface;
 
-public interface EmailService {
+import com.resend.core.exception.ResendException;
 
-    public void sendPasswordResetEmail(String to, String token);
+public interface EmailService{
+
+    public void sendPasswordResetEmail(String to, String token) throws ResendException;
     
 }
