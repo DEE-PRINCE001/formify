@@ -23,7 +23,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        // Find out which provider this is (google or github)
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         
         // Extract the email
@@ -31,8 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if (registrationId.equalsIgnoreCase("google")) {
             email = oAuth2User.getAttribute("email");
         } else if (registrationId.equalsIgnoreCase("github")) {
-            // GitHub sometimes hides the email or puts it in a different attribute, 
-            // but usually 'email' or 'login' works for basic setup.
+    
             email = oAuth2User.getAttribute("email");
             if (email == null) {
                 email = oAuth2User.getAttribute("login") + "@github.com"; // Fallback
@@ -45,8 +43,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         if (userOptional.isPresent()) {
             user = userOptional.get();
-            // If they previously registered locally with a password, but now use Google, 
-            // update their provider to Google (or just leave it, depending on your business logic).
+           
             if (!user.getProvider().name().equalsIgnoreCase(registrationId)) {
                 user.setProvider(AuthProvider.valueOf(registrationId.toUpperCase()));
                 userRepository.save(user);
@@ -62,6 +59,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userRepository.save(user);
         }
 
-        return oAuth2User; // Return the Spring Security user object
+        return oAuth2User; 
     }
 }

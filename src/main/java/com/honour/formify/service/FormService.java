@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class FormService {
     private final FormRepository formRepository;
     private final UserRepository userRepository;
-    private final QuestionRepository questionRepository;
+    
 
     @Transactional
     public FormResponse createForm(FormRequest request){
